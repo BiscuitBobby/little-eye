@@ -135,8 +135,8 @@ export function DeviceDashboard() {
 
   return (
     <div className="w-full max-w-6xl">
-      {/* Device Grid */}
-      <div className="mb-8">
+      {/* Device Grid — hidden when a device is selected */}
+      <div className={`mb-8 transition-all duration-300 ${selectedDevice ? "hidden" : ""}`}>
         <h1 className="text-3xl font-bold text-white mb-6 tracking-tight">
           Connected Devices
         </h1>
@@ -279,7 +279,20 @@ export function DeviceDashboard() {
                      <span className="capitalize">{selectedDevice.type}</span>
                      {selectedDevice.battery !== undefined && (
                        <span className="flex items-center gap-1">
-                          <Battery className="w-3.5 h-3.5" /> {selectedDevice.battery}%
+                         <Battery className="w-3.5 h-3.5" /> {selectedDevice.battery}%
+                       </span>
+                     )}
+                     {selectedDevice.signal !== undefined && (
+                       <span className="flex items-center gap-1.5">
+                         <Wifi className="w-3.5 h-3.5" />
+                         <span className="flex gap-0.5">
+                           {[1, 2, 3, 4, 5].map(level => (
+                             <span
+                               key={level}
+                               className={`inline-block w-1 h-3 rounded-full ${level <= selectedDevice.signal! ? 'bg-cyan-400 shadow-[0_0_5px_rgba(34,211,238,0.5)]' : 'bg-white/10'}`}
+                             />
+                           ))}
+                         </span>
                        </span>
                      )}
                   </div>
