@@ -261,10 +261,10 @@ export function DeviceDashboard() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="relative bg-gradient-to-br from-white/3 to-white/1 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md"
+            className="relative bg-gradient-to-br from-white/3 to-white/1 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md max-h-[min(850px,85vh)] flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-black/20">
+            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-black/20 flex-shrink-0">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-xl relative">
                   {getDeviceIcon(selectedDevice.type, "w-6 h-6 text-cyan-400")}
@@ -299,7 +299,7 @@ export function DeviceDashboard() {
               </motion.button>
             </div>
 
-            <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+            <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 overflow-hidden">
               {/* Notifications Section */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2 mb-4">
@@ -349,7 +349,7 @@ export function DeviceDashboard() {
 
                 <div className="flex flex-col flex-1 gap-4">
                   {/* Shell Output */}
-                  <div className="flex-1 bg-[#0a0a0f] border border-white/10 rounded-xl overflow-hidden flex flex-col shadow-inner relative">
+                  <div className="flex-1 min-h-[300px] bg-[#0a0a0f] border border-white/10 rounded-xl overflow-hidden flex flex-col shadow-inner relative">
                     
                     {/* MacOS Style Terminal Header */}
                     <div className="bg-[#1a1b23] px-4 py-2.5 border-b border-white/5 flex items-center justify-between flex-shrink-0 select-none">
