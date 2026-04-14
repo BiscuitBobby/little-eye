@@ -3,9 +3,9 @@ import time
 import json
 import random
 
-BASE_URL = "http://localhost:3000/api"
-DEVICE_ID = "nexus-6p-test"
-DEVICE_NAME = "Nexus 6P (Simulated)"
+BASE_URL = "https://little-eye.vercel.app/api"
+DEVICE_ID = "pixel-8a"
+DEVICE_NAME = "Pixel 8A (Simulated)"
 
 def ping():
     print(f"[*] Pinging as {DEVICE_NAME}...")

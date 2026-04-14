@@ -112,7 +112,6 @@ export function DeviceDashboard() {
 
   const quickCommands = ["df -h", "ps aux", "uptime"]
 
-
   const handleSendCommand = async () => {
     if (!commandInput.trim() || !selectedDevice) return
 
@@ -129,9 +128,6 @@ export function DeviceDashboard() {
       if (!res.ok) {
         throw new Error('Failed to send command');
       }
-      
-      // We don't need to manually update state here, 
-      // the polling will pick up the new command and its eventual output.
     } catch (error) {
       console.error('Error sending command:', error);
     }
@@ -187,7 +183,7 @@ export function DeviceDashboard() {
                     : "bg-white/3 border-white/5 hover:border-white/20 hover:bg-white/5"
                 }`}
               >
-                {/* Notification Badge Badge */}
+                {/* Notification Badge */}
                 {notifCount > 0 && (
                   <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full shadow-lg border-2 border-[#0f0f13] z-10">
                     {notifCount}
@@ -261,10 +257,10 @@ export function DeviceDashboard() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="relative bg-gradient-to-br from-white/3 to-white/1 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md"
+            className="relative bg-gradient-to-br from-white/3 to-white/1 border border-white/10 rounded-2xl overflow-hidden backdrop-blur-md max-h-[min(850px,85vh)] flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-black/20">
+            <div className="flex items-center justify-between p-6 border-b border-white/5 bg-black/20 flex-shrink-0">
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 rounded-xl relative">
                   {getDeviceIcon(selectedDevice.type, "w-6 h-6 text-cyan-400")}
@@ -299,10 +295,12 @@ export function DeviceDashboard() {
               </motion.button>
             </div>
 
-            <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-              {/* Notifications Section */}
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2 mb-4">
+            {/* ↓ min-h-0 here lets this row shrink so the panel stays within max-h */}
+            <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-h-0 overflow-hidden">
+
+              {/* Notifications Section — min-h-0 lets overflow-y-auto actually scroll */}
+              <div className="flex flex-col min-h-0">
+                <div className="flex items-center gap-2 mb-4 flex-shrink-0">
                   <Bell className="w-5 h-5 text-cyan-400" />
                   <h3 className="text-lg font-semibold text-white">Notifications</h3>
                 </div>
@@ -340,16 +338,17 @@ export function DeviceDashboard() {
                 </div>
               </div>
 
-              {/* Commands Section */}
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2 mb-4">
+              {/* Commands Section — min-h-0 lets overflow-y-auto actually scroll */}
+              <div className="flex flex-col min-h-0">
+                <div className="flex items-center gap-2 mb-4 flex-shrink-0">
                   <Terminal className="w-5 h-5 text-cyan-400" />
                   <h3 className="text-lg font-semibold text-white">Commands</h3>
                 </div>
 
-                <div className="flex flex-col flex-1 gap-4">
+                {/* min-h-0 here too so the terminal+input wrapper can shrink */}
+                <div className="flex flex-col flex-1 gap-4 min-h-0">
                   {/* Shell Output */}
-                  <div className="flex-1 bg-[#0a0a0f] border border-white/10 rounded-xl overflow-hidden flex flex-col shadow-inner relative">
+                  <div className="flex-1 min-h-0 bg-[#0a0a0f] border border-white/10 rounded-xl overflow-hidden flex flex-col shadow-inner relative">
                     
                     {/* MacOS Style Terminal Header */}
                     <div className="bg-[#1a1b23] px-4 py-2.5 border-b border-white/5 flex items-center justify-between flex-shrink-0 select-none">
